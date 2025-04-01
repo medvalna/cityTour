@@ -1,19 +1,29 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const text = ref('Edit me')
+const text = ref('')
 </script>
 
 <template>
-  <div class="input">
-    <p>{{ text }}</p>
-    <input v-model="text" />
-  </div>
+  <input v-model="text" class="input" placeholder="Введите название экскурсии" />
 </template>
 
 <style>
 .input {
-  display: flex;
-  flex-direction: column;
+  width: 300px;
+  height: 50px;
+  border: 1px solid var(--custom-gray);
+  color: var(--text-gray);
+  border-radius: 1px;
+  outline: none;
+}
+.input:hover {
+  border-color: var(--custom-yellow);
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--custom-yellow);
+  outline: none;
 }
 </style>

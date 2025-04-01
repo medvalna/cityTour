@@ -3,26 +3,27 @@ import { onMounted, ref } from 'vue'
 import InputUI from '@/components/InputUI.vue'
 import MultiSelect from '@/components/MultiSelect.vue'
 import TourCard from '@/components/TourCard.vue'
+import SputnikLogo from '@/components/SputnikLogo.vue'
 import type { Tour } from './types/tour'
 import { fetchTours } from '@/api/fetchTours'
+import { fetchCities } from './api/fetchCities'
+import type { City } from './types/city'
 
 const tours = ref<Tour[]>([])
-
+const cities = ref<City[]>([])
 onMounted(async () => {
   tours.value = await fetchTours()
+  cities.value = await fetchCities()
 })
 </script>
 <template>
-  <div>
+  <div class="container">
     <div class="title">
-      <div class="logo">
-        <h2>SPUTNIK</h2>
-        <img src="/public/logo.svg" width="30px" />
-      </div>
+      <SputnikLogo />
       <h1>Экскурсии по всему миру</h1>
       <div class="form">
         <InputUI />
-        <MultiSelect />
+        <MultiSelect v-bind:cities="cities" />
       </div>
     </div>
     <div class="cards">
@@ -34,21 +35,25 @@ onMounted(async () => {
 </template>
 
 <style>
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 .title {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 30px;
 }
 .form {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  gap: 30px;
 }
-.logo {
-  display: flex;
-  flex-direction: row;
-}
+
 .cards {
   overflow-x: hidden;
   display: grid;

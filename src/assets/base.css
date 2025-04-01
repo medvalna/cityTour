@@ -38,4 +38,7 @@ h1 {
 /* Optional: Force inheritance for all elements */
 * {
   font-family: inherit;
+  --custom-gray: #00000026;
+  --text-gray: #999999;
+  --custom-yellow: #ffd301;
 }
