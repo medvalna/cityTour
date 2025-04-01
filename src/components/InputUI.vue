@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-
+import XIcon from '@/assets/icons/XIcon.svg'
 const tour = ref('')
 
 const emit = defineEmits<{
@@ -29,7 +29,7 @@ defineExpose({
       class="input"
       placeholder="Введите название экскурсии"
     />
-    <img v-if="tour" src="@/assets/icons/XIcon.svg" class="clear-icon" @click="clear" />
+    <img v-if="tour" :src="XIcon" class="clear-icon" @click="clear" />
   </div>
 </template>
 

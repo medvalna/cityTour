@@ -1,7 +1,11 @@
+<script lang="ts" setup>
+import Logo from '@/assets/icons/logo.svg'
+import Sputnik from '@/assets/icons/sputnik.svg'
+</script>
 <template>
   <div class="logo">
-    <img src="@/assets/icons/logo.svg" width="30px" />
-    <img src="@/assets/icons/sputnik.svg" width="120.9px" />
+    <img :src="Logo" width="30px" />
+    <img :src="Sputnik" width="120.9px" />
   </div>
 </template>
 

@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import type { City } from '@/types/city'
-
+import ArrowDown from '@/assets/icons/ArrowDown.svg'
+import Search from '@/assets/icons/Search.svg'
+import XIcon from '@/assets/icons/XIcon.svg'
 const props = defineProps<{
   cities: City[]
 }>()
@@ -70,13 +72,9 @@ defineExpose({
         <p :class="{ selectedText: selectedCity }">
           {{ selectedCity ? selectedCity.name : 'Выбрать город' }}
         </p>
-        <img v-if="selectedCity" src="@/assets/icons/XIcon.svg" @click="clear" />
+        <img v-if="selectedCity" :src="XIcon" @click="clear" />
         <div v-else class="buttons">
-          <img
-            src="@/assets/icons/ArrowDown.svg"
-            :class="{ 'rotate-180': isOpen }"
-            alt="dropdown arrow"
-          />
+          <img :src="ArrowDown" :class="{ 'rotate-180': isOpen }" alt="dropdown arrow" />
         </div>
       </div>
     </div>
@@ -85,7 +83,7 @@ defineExpose({
       <div class="search">
         <div class="inputBox">
           <input @input="filterCities" v-model="searchText" placeholder="Введите название города" />
-          <img src="@/assets/icons/Search.svg" width="16" />
+          <img :src="Search" width="16" />
         </div>
       </div>
       <li

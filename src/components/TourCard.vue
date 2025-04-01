@@ -2,7 +2,7 @@
 import type { Tour } from '@/types/tour'
 import { formatPrice } from '@/utils/formatPrice'
 import { ref } from 'vue'
-
+import Star from '@/assets/icons/Star.svg'
 const props = defineProps<{
   tour: Tour
 }>()
@@ -20,7 +20,7 @@ const formattedPrice = formatPrice(props.tour.netto_price)
   <div class="cardn">
     <img class="pic" :src="tour.cover_photo?.big" :alt="tour.title" />
     <div class="rating">
-      <img src="@/assets/icons/Star.svg" width="15px" />
+      <img :src="Star" width="15px" />
       <div class="ratingNumber">{{ customers_review_rating }}</div>
       <div class="secondaryText">({{ tour.reviews }})</div>
     </div>
