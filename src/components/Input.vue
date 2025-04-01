@@ -14,6 +14,7 @@ const handleChangeTourName = () => {
 
 const clear = () => {
   tour.value = ''
+  emit('update:tour', tour.value)
 }
 
 defineExpose({
