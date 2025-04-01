@@ -13,7 +13,7 @@ export type Tour = {
   activity_type: 'tour' | 'entry_ticket' | 'transfer' | 'composite_activity'
   title: string
   updated_at: string
-  netto_price: number
+  netto_price: string
   order_options: OrderOption[]
   pay_type: 'post_pay' | 'deposit' | 'full_pay'
   pay_type_in_text: string

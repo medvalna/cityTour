@@ -3,7 +3,6 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
-  font-weight: normal;
 }
 
 @font-face {
@@ -35,7 +34,6 @@ h1 {
   font-family: 'PT Sans Caption';
 }
 
-/* Optional: Force inheritance for all elements */
 * {
   font-family: inherit;
   --custom-gray: #00000026;

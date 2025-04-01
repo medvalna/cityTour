@@ -5,23 +5,40 @@ const tour = ref('')
 
 const emit = defineEmits<{
   (e: 'update:tour', value: string): void
+  (e: 'clear'): void
 }>()
 
 const handleChangeTourName = () => {
   emit('update:tour', tour.value)
 }
+
+const clear = () => {
+  tour.value = ''
+}
+
+defineExpose({
+  clear,
+})
 </script>
 
 <template>
-  <input
-    @input="handleChangeTourName"
-    v-model="tour"
-    class="input"
-    placeholder="Введите название экскурсии"
-  />
+  <div class="input-container">
+    <input
+      @input="handleChangeTourName"
+      v-model="tour"
+      class="input"
+      placeholder="Введите название экскурсии"
+    />
+    <img v-if="tour" src="@/assets/icons/XIcon.svg" class="clear-icon" @click="clear" />
+  </div>
 </template>
 
-<style>
+<style scoped>
+.input-container {
+  position: relative;
+  display: inline-block;
+}
+
 .input {
   cursor: pointer;
   width: 300px;
@@ -31,7 +48,22 @@ const handleChangeTourName = () => {
   border-radius: 1px;
   outline: none;
   padding: 14.5px 15px;
+  padding-right: 35px;
 }
+.clear-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--custom-gray);
+}
+
+.clear-icon:hover {
+  color: var(--text-gray);
+}
+
 .input:hover {
   border-color: var(--custom-yellow);
   outline: none;

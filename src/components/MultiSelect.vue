@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import type { City } from '@/types/city'
 
 const props = defineProps<{
@@ -8,11 +8,14 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'update:city', value: City | null): void
+  (e: 'clear'): void
 }>()
+
 const selectedCity = ref<City | null>(null)
 const isOpen = ref(false)
 const searchText = ref('')
 const filteredCities = ref<City[]>(props.cities)
+const selectWrapper = ref<HTMLElement | null>(null)
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value
   searchText.value = ''
@@ -25,6 +28,14 @@ const selectCity = (city: City | null) => {
   emit('update:city', city)
 }
 
+const clear = () => {
+  selectedCity.value = null
+  searchText.value = ''
+  filteredCities.value = props.cities
+  isOpen.value = false
+  emit('update:city', null)
+}
+
 const filterCities = () => {
   if (!searchText.value) {
     filteredCities.value = props.cities
@@ -34,15 +45,33 @@ const filterCities = () => {
     )
   }
 }
+const handleClickOutside = (event: MouseEvent) => {
+  if (selectWrapper.value && !selectWrapper.value.contains(event.target as Node)) {
+    isOpen.value = false
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
+
+defineExpose({
+  clear,
+})
 </script>
 <template>
-  <div class="selectWrapper">
+  <div ref="selectWrapper" class="selectWrapper">
     <div class="selector" @click="toggleDropdown">
       <div class="placeholder">
         <p :class="{ selectedText: selectedCity }">
           {{ selectedCity ? selectedCity.name : 'Выбрать город' }}
         </p>
-        <div class="buttons">
+        <img v-if="selectedCity" src="@/assets/icons/XIcon.svg" @click="clear" />
+        <div v-else class="buttons">
           <img
             src="@/assets/icons/ArrowDown.svg"
             :class="{ 'rotate-180': isOpen }"

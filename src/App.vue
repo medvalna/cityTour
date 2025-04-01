@@ -15,6 +15,9 @@ const filteredTours = ref<Tour[]>([])
 const selectedCity = ref<City | null>(null)
 const tourName = ref<string>('')
 
+const inputRef = ref<InstanceType<typeof InputUI> | null>(null)
+const multiSelectRef = ref<InstanceType<typeof MultiSelect> | null>(null)
+
 const filterToursByCity = () => {
   if (!selectedCity.value) {
     filteredTours.value = tours.value
@@ -44,14 +47,14 @@ watch(tourName, () => {
 
 const handleCityUpdate = (city: City | null) => {
   selectedCity.value = city
-  console.log('Selected city:', selectedCity.value)
 }
 const handleTourNameUpdate = (tour: string) => {
   tourName.value = tour
-  console.log('Inputted tourname:', tourName.value)
 }
 
 const deleteFilters = () => {
+  inputRef.value?.clear()
+  multiSelectRef.value?.clear()
   handleCityUpdate(null)
   handleTourNameUpdate('')
 }
@@ -70,8 +73,13 @@ onMounted(async () => {
       <SputnikLogo />
       <h1>Экскурсии по всему миру</h1>
       <div class="form">
-        <InputUI @update:tour="handleTourNameUpdate" />
-        <MultiSelect v-bind:cities="cities" v-bind="selectedCity" @update:city="handleCityUpdate" />
+        <InputUI ref="inputRef" @update:tour="handleTourNameUpdate" />
+        <MultiSelect
+          ref="multiSelectRef"
+          v-bind:cities="cities"
+          v-bind="selectedCity"
+          @update:city="handleCityUpdate"
+        />
       </div>
     </div>
     <div v-if="filteredTours" class="cards">
