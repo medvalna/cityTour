@@ -5,21 +5,27 @@ import type { City } from '@/types/city'
 const props = defineProps<{
   cities: City[]
 }>()
+
+const emit = defineEmits<{
+  (e: 'update:city', value: City | null): void
+}>()
 const selectedCity = ref<City | null>(null)
 const isOpen = ref(false)
 const searchText = ref('')
 const filteredCities = ref<City[]>(props.cities)
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value
+  searchText.value = ''
+  filteredCities.value = props.cities
 }
 
-const selectCity = (city: City) => {
+const selectCity = (city: City | null) => {
   selectedCity.value = city
   isOpen.value = false
+  emit('update:city', city)
 }
 
 const filterCities = () => {
-  console.info('filtering')
   if (!searchText.value) {
     filteredCities.value = props.cities
   } else {
@@ -36,11 +42,13 @@ const filterCities = () => {
         <p :class="{ selectedText: selectedCity }">
           {{ selectedCity ? selectedCity.name : 'Выбрать город' }}
         </p>
-        <img
-          src="@/assets/icons/ArrowDown.svg"
-          :class="{ 'rotate-180': isOpen }"
-          alt="dropdown arrow"
-        />
+        <div class="buttons">
+          <img
+            src="@/assets/icons/ArrowDown.svg"
+            :class="{ 'rotate-180': isOpen }"
+            alt="dropdown arrow"
+          />
+        </div>
       </div>
     </div>
 
@@ -59,11 +67,19 @@ const filterCities = () => {
       >
         <p>{{ city.name }}</p>
       </li>
+      <li v-if="filteredCities.length === 0" class="noResults">
+        <p>Городов не найдено</p>
+      </li>
     </ul>
   </div>
 </template>
 
 <style>
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
 .selectWrapper {
   width: 300px;
   position: relative;
@@ -99,8 +115,8 @@ const filterCities = () => {
 
 .list {
   width: 300px;
+  max-height: 239px;
   background-color: white;
-  height: 239px;
   border-radius: 1px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -152,5 +168,10 @@ const filterCities = () => {
 }
 .inputBox:focus {
   border: 1px solid var(--custom-yellow);
+}
+.noResults {
+  display: flex;
+  justify-content: center;
+  padding: 14.5px 15px;
 }
 </style>

@@ -1,21 +1,36 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const text = ref('')
+const tour = ref('')
+
+const emit = defineEmits<{
+  (e: 'update:tour', value: string): void
+}>()
+
+const handleChangeTourName = () => {
+  emit('update:tour', tour.value)
+}
 </script>
 
 <template>
-  <input v-model="text" class="input" placeholder="Введите название экскурсии" />
+  <input
+    @input="handleChangeTourName"
+    v-model="tour"
+    class="input"
+    placeholder="Введите название экскурсии"
+  />
 </template>
 
 <style>
 .input {
+  cursor: pointer;
   width: 300px;
   height: 50px;
   border: 1px solid var(--custom-gray);
   color: var(--text-gray);
   border-radius: 1px;
   outline: none;
+  padding: 14.5px 15px;
 }
 .input:hover {
   border-color: var(--custom-yellow);
