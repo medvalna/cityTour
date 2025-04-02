@@ -32,10 +32,10 @@ const filterToursByName = () => {
     filteredTours.value = tours.value
     return
   }
+  const searchQuery = tourName.value.toLowerCase()
+  const regex = new RegExp(searchQuery.split('').join('.*'), 'i')
 
-  filteredTours.value = tours.value.filter((tour) =>
-    tour.title.toLowerCase().includes(tourName.value.toLowerCase()),
-  )
+  filteredTours.value = tours.value.filter((tour) => regex.test(tour.title))
 }
 
 watch(selectedCity, () => {
