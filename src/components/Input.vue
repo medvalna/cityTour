@@ -23,19 +23,19 @@ defineExpose({
 </script>
 
 <template>
-  <div class="input-container">
+  <div class="inputContainer">
     <input
       @input="handleChangeTourName"
       v-model="tour"
       class="input"
       placeholder="Введите название экскурсии"
     />
-    <img v-if="tour" :src="XIcon" class="clear-icon" @click="clear" />
+    <XIcon v-if="tour" class="clearIcon" @click="clear" />
   </div>
 </template>
 
 <style scoped>
-.input-container {
+.inputContainer {
   position: relative;
   display: inline-block;
 }
@@ -51,18 +51,19 @@ defineExpose({
   padding: 14.5px 15px;
   padding-right: 35px;
 }
-.clear-icon {
+.clearIcon {
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 20px;
-  color: var(--custom-gray);
+  fill: var(--custom-gray);
 }
 
 .clear-icon:hover {
-  color: var(--text-gray);
+  transition: transform 0.3 ease;
+  fill: black;
 }
 
 .input:hover {

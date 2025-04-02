@@ -4,8 +4,8 @@ import Sputnik from '@/assets/icons/sputnik.svg'
 </script>
 <template>
   <div class="logo">
-    <img :src="Logo" width="30px" />
-    <img :src="Sputnik" width="120.9px" />
+    <Logo width="30px" />
+    <Sputnik width="120.9px" />
   </div>
 </template>
 

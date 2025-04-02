@@ -77,7 +77,7 @@ defineExpose({
         </p>
         <img v-if="selectedCity" :src="XIcon" @click="clear" />
         <div v-else class="buttons">
-          <img :src="ArrowDown" :class="{ 'rotate-180': isOpen }" alt="dropdown arrow" />
+          <ArrowDown :class="{ 'rotate-180': isOpen }" />
         </div>
       </div>
     </div>
@@ -86,7 +86,7 @@ defineExpose({
       <div class="search">
         <div class="inputBox">
           <input @input="filterCities" v-model="searchText" placeholder="Введите название города" />
-          <img :src="Search" width="16" />
+          <Search width="16" fill="var(--custom-gray)" class="searchIcon" />
         </div>
       </div>
       <li

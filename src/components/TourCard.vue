@@ -20,7 +20,7 @@ const formattedPrice = formatPrice(props.tour.netto_price)
   <div class="cardn">
     <img class="pic" :src="tour.cover_photo?.big" :alt="tour.title" />
     <div class="rating">
-      <img :src="Star" width="15px" />
+      <Star width="15px" />
       <div class="ratingNumber">{{ customers_review_rating }}</div>
       <div class="secondaryText">({{ tour.reviews }})</div>
     </div>
